@@ -1,6 +1,6 @@
 import { state } from "@/state.js";
 import { saveProgress } from "@/storage.js";
-import { switchScreen, el } from "@/utils.js";
+import { switchScreen, el, make } from "@/utils.js";
 import { renderHome } from "@/screens/home.js";
 import { startSim } from "@/screens/quiz.js";
 
@@ -42,20 +42,30 @@ export function renderResult(): void {
   state.answers.forEach((a, idx) => {
     const correctText = a.q.opts[a.q.correct] ?? "";
     const userText = a.picked === -1 ? "(pulada)" : (a.q.opts[a.picked] ?? "");
-    const item = document.createElement("div");
-    item.className = "review-item";
-    item.innerHTML = `
-      <div class="review-head">
-        <span>Questão ${String(idx + 1).padStart(2, "0")} · ${a.q.tag === "DD" ? "Defensiva" : "Socorros"}</span>
-        <span class="right ${a.wasCorrect ? "ok" : "no"}">${a.wasCorrect ? "✓ Acertou" : "✗ Errou"}</span>
-      </div>
-      <p class="review-q">${a.q.q}</p>
-      <div class="review-ans">
-        <span class="lab">Sua resposta</span>${userText}
-        <span class="lab">Resposta correta</span>${correctText}
-        <span class="lab">Por quê</span>${a.q.exp}
-      </div>
-    `;
+    const item = make("div", { class: "review-item" });
+
+    const head = make("div", { class: "review-head" });
+    head.append(
+      make("span", {
+        text: `Questão ${String(idx + 1).padStart(2, "0")} · ${a.q.tag === "DD" ? "Defensiva" : "Socorros"}`,
+      }),
+      make("span", {
+        class: `right ${a.wasCorrect ? "ok" : "no"}`,
+        text: a.wasCorrect ? "✓ Acertou" : "✗ Errou",
+      }),
+    );
+
+    const ans = make("div", { class: "review-ans" });
+    ans.append(
+      make("span", { class: "lab", text: "Sua resposta" }),
+      document.createTextNode(userText),
+      make("span", { class: "lab", text: "Resposta correta" }),
+      document.createTextNode(correctText),
+      make("span", { class: "lab", text: "Por quê" }),
+      document.createTextNode(a.q.exp),
+    );
+
+    item.append(head, make("p", { class: "review-q", text: a.q.q }), ans);
     fragment.appendChild(item);
   });
   el("review-list").replaceChildren(fragment);

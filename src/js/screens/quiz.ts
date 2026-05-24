@@ -1,5 +1,5 @@
 import { state } from "@/state.js";
-import { pickQuestions, prepareQuestion, switchScreen, el } from "@/utils.js";
+import { pickQuestions, prepareQuestion, switchScreen, el, make } from "@/utils.js";
 import { renderResult } from "@/screens/result.js";
 import type { Simulado } from "@/types.js";
 
@@ -32,9 +32,11 @@ function renderQuestion(): void {
   const letters = ["A", "B", "C", "D"];
   const fragment = document.createDocumentFragment();
   q.opts.forEach((opt, i) => {
-    const btn = document.createElement("button");
-    btn.className = "option";
-    btn.innerHTML = `<span class="option-letter">${letters[i]}</span><span class="option-text">${opt}</span>`;
+    const btn = make("button", { class: "option" });
+    btn.append(
+      make("span", { class: "option-letter", text: letters[i] ?? "" }),
+      make("span", { class: "option-text", text: opt }),
+    );
     btn.addEventListener("click", () => handleAnswer(i));
     fragment.appendChild(btn);
   });
@@ -61,7 +63,10 @@ function handleAnswer(picked: number): void {
   state.answers.push({ q, picked, wasCorrect });
 
   const expEl = el("explain");
-  expEl.innerHTML = `<strong>${wasCorrect ? "Correto." : "Resposta errada."}</strong> ${q.exp}`;
+  expEl.replaceChildren(
+    make("strong", { text: wasCorrect ? "Correto." : "Resposta errada." }),
+    document.createTextNode(" " + q.exp),
+  );
   expEl.classList.add("show");
 
   el<HTMLButtonElement>("btn-next").disabled = false;

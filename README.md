@@ -42,16 +42,26 @@ O build copia `src/index.html` + `src/styles/` para `dist/` e o `tsc` emite os `
 
 ## Scripts
 
+Gerenciado via **pnpm** (ativado por Corepack a partir do `packageManager` no `package.json`).
+
 ```bash
-npm install         # instala typescript, oxlint, oxfmt
-npm run build       # gera dist/
-npm run typecheck   # tsc --noEmit
-npm run lint        # oxlint
-npm run lint:fix    # oxlint --fix
-npm run fmt         # oxfmt --write
-npm run fmt:check   # falha se algo precisa de format
-npm run serve       # build + http-server em :8000
+corepack enable     # uma vez, para ativar o pnpm via Corepack
+pnpm install        # instala typescript, oxlint, oxfmt, http-server
+pnpm build          # gera dist/
+pnpm typecheck      # tsc --noEmit
+pnpm lint           # oxlint
+pnpm lint:fix       # oxlint --fix
+pnpm fmt            # oxfmt --write
+pnpm fmt:check      # falha se algo precisa de format
+pnpm serve          # build + http-server em :8000
 ```
+
+### Política de supply-chain
+
+- `minimum-release-age=10080` (`.npmrc`) — pnpm rejeita versões publicadas há menos de 7 dias durante resolução, dando margem para detecção de pacotes maliciosos recém-publicados.
+- `verify-deps-before-run=error` — pnpm valida que `node_modules` corresponde ao `pnpm-lock.yaml` antes de rodar qualquer script.
+- `strict-dep-builds=true` — instala/`postinstall` de dependências só rodam se o pacote estiver no allowlist `onlyBuiltDependencies` (atualmente vazio em `pnpm-workspace.yaml`).
+- `frozen-lockfile=true` — `pnpm install` se recusa a mexer no lockfile; mudanças exigem `pnpm add`/`pnpm update` explícitos.
 
 ## CI
 
@@ -61,7 +71,7 @@ npm run serve       # build + http-server em :8000
 - `lint` — `oxlint`
 - `fmt` — `oxfmt --list-different` (falha se houver arquivos não formatados)
 
-Módulos ES exigem ser servidos via HTTP (não `file://`). Use o `npm run serve` ou qualquer outro servidor estático apontando para `dist/`.
+Módulos ES exigem ser servidos via HTTP (não `file://`). Use o `pnpm serve` ou qualquer outro servidor estático apontando para `dist/`.
 
 ## Deploy
 

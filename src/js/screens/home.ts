@@ -1,7 +1,7 @@
 import { SIMULADOS } from "@/data/simulados.js";
 import { state } from "@/state.js";
 import { startSim } from "@/screens/quiz.js";
-import { el } from "@/utils.js";
+import { el, make } from "@/utils.js";
 
 export function renderHome(): void {
   el("stat-total").textContent = String(SIMULADOS.length);
@@ -12,25 +12,33 @@ export function renderHome(): void {
   const fragment = document.createDocumentFragment();
   SIMULADOS.forEach((s) => {
     const done = state.progress.done[s.id];
-    const card = document.createElement("button");
-    card.className = "sim-card";
-    card.innerHTML = `
-      ${done ? `<span class="badge-done">Feito · ${done.pct}%</span>` : ""}
-      <div class="sim-card-head">
-        <span class="sim-num">N°${String(s.id).padStart(2, "0")}</span>
-        <span class="sim-badge ${s.badge}">${s.badgeText}</span>
-      </div>
-      <h3 class="sim-title">${s.name}</h3>
-      <p class="sim-desc">${s.desc}</p>
-      <div class="sim-meta">
-        <span>· ${s.count} QUESTÕES</span>
-        <span>· APROVAÇÃO 70%</span>
-      </div>
-    `;
+    const card = make("button", { class: "sim-card" });
+
+    if (done) {
+      card.appendChild(make("span", { class: "badge-done", text: `Feito · ${done.pct}%` }));
+    }
+
+    const head = make("div", { class: "sim-card-head" });
+    head.append(
+      make("span", { class: "sim-num", text: `N°${String(s.id).padStart(2, "0")}` }),
+      make("span", { class: `sim-badge ${s.badge}`, text: s.badgeText }),
+    );
+
+    const meta = make("div", { class: "sim-meta" });
+    meta.append(
+      make("span", { text: `· ${s.count} QUESTÕES` }),
+      make("span", { text: "· APROVAÇÃO 70%" }),
+    );
+
+    card.append(
+      head,
+      make("h3", { class: "sim-title", text: s.name }),
+      make("p", { class: "sim-desc", text: s.desc }),
+      meta,
+    );
     card.addEventListener("click", () => startSim(s));
     fragment.appendChild(card);
   });
 
-  const list = el("sim-list");
-  list.replaceChildren(fragment);
+  el("sim-list").replaceChildren(fragment);
 }

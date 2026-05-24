@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- script-src hash covers the inline importmap below; regenerate if its bytes change -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'sha256-G20LZh5slfv9DRyI50Bk7FcIUqPbKH6VLYbxuAd98sI='; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
+    />
     <title>Simulado CNH — Atualização de Renovação</title>
     <meta
       name="description"
@@ -77,7 +82,7 @@
           <button class="exit" id="btn-exit">Sair</button>
         </div>
         <div class="progress-track"><div class="progress-fill" id="progress"></div></div>
-        <div class="q-meta" style="margin-bottom: 10px">
+        <div class="q-meta">
           <span id="q-counter">Questão 01 / 10</span>
           <span id="q-score">Acertos: 0</span>
         </div>
@@ -111,7 +116,7 @@
         <h2 class="section-title">Revisão das questões</h2>
         <div class="review-list" id="review-list"></div>
 
-        <div class="quiz-nav" style="margin-top: 14px">
+        <div class="quiz-nav">
           <button class="btn" id="btn-home">← Início</button>
           <button class="btn primary" id="btn-retry">Tentar de novo</button>
         </div>

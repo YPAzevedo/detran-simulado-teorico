@@ -9,17 +9,19 @@
     "clean": "rm -rf dist",
     "copy:static": "mkdir -p dist && cp src/index.html dist/index.html && cp -r src/styles dist/styles",
     "build:ts": "tsc",
-    "build": "npm run clean && npm run copy:static && npm run build:ts",
+    "build": "pnpm run clean && pnpm run copy:static && pnpm run build:ts",
     "typecheck": "tsc --noEmit",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "fmt": "oxfmt --write .",
-    "fmt:check": "diff=$(oxfmt --list-different . 2>&1); if [ -n \"$diff\" ]; then echo \"$diff\"; echo 'Run: npm run fmt'; exit 1; fi",
-    "serve": "npm run build && npx --yes http-server dist -p 8000 -c-1"
+    "fmt:check": "diff=$(oxfmt --list-different . 2>&1); if [ -n \"$diff\" ]; then echo \"$diff\"; echo 'Run: pnpm fmt'; exit 1; fi",
+    "serve": "pnpm run build && http-server dist -p 8000 -c-1"
   },
   "devDependencies": {
+    "http-server": "^14.1.1",
     "oxfmt": "^0.51.0",
     "oxlint": "^1.66.0",
     "typescript": "^5.6.3"
-  }
+  },
+  "packageManager": "pnpm@11.3.0"
 }

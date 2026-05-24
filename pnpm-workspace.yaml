@@ -1,0 +1,5 @@
+# pnpm 11 reads project-wide settings from this file.
+# Single-package repo, so no `packages:` list is needed.
+
+# Empty allowlist: no dependency may run install / postinstall scripts.
+onlyBuiltDependencies: []
