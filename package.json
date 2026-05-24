@@ -15,7 +15,7 @@
     "lint:fix": "oxlint --fix",
     "fmt": "oxfmt --write .",
     "fmt:check": "diff=$(oxfmt --list-different . 2>&1); if [ -n \"$diff\" ]; then echo \"$diff\"; echo 'Run: npm run fmt'; exit 1; fi",
-    "serve": "npm run build && npx --yes http-server dist -p 8000 -c-1"
+    "serve": "npm run build && npx --yes http-server@14.1.1 dist -p 8000 -c-1"
   },
   "devDependencies": {
     "oxfmt": "^0.51.0",

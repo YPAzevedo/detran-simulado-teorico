@@ -42,3 +42,13 @@ export function el<T extends HTMLElement = HTMLElement>(id: string): T {
   if (!node) throw new Error(`Element #${id} not found`);
   return node as T;
 }
+
+export function make<K extends keyof HTMLElementTagNameMap>(
+  tag: K,
+  options: { class?: string; text?: string } = {},
+): HTMLElementTagNameMap[K] {
+  const node = document.createElement(tag);
+  if (options.class) node.className = options.class;
+  if (options.text !== undefined) node.textContent = options.text;
+  return node;
+}
