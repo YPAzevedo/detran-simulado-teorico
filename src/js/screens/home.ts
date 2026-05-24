@@ -9,8 +9,7 @@ export function renderHome(): void {
   el("stat-feitos").textContent = String(doneCount);
   el("stat-melhor").textContent = state.progress.bestPct ? state.progress.bestPct + "%" : "—";
 
-  const list = el("sim-list");
-  list.innerHTML = "";
+  const fragment = document.createDocumentFragment();
   SIMULADOS.forEach((s) => {
     const done = state.progress.done[s.id];
     const card = document.createElement("button");
@@ -29,6 +28,9 @@ export function renderHome(): void {
       </div>
     `;
     card.addEventListener("click", () => startSim(s));
-    list.appendChild(card);
+    fragment.appendChild(card);
   });
+
+  const list = el("sim-list");
+  list.replaceChildren(fragment);
 }

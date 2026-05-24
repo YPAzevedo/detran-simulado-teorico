@@ -29,16 +29,16 @@ function renderQuestion(): void {
   el("q-text").textContent = q.q;
   el("progress").style.width = (state.current / total) * 100 + "%";
 
-  const optsEl = el("options");
-  optsEl.innerHTML = "";
   const letters = ["A", "B", "C", "D"];
+  const fragment = document.createDocumentFragment();
   q.opts.forEach((opt, i) => {
     const btn = document.createElement("button");
     btn.className = "option";
     btn.innerHTML = `<span class="option-letter">${letters[i]}</span><span class="option-text">${opt}</span>`;
     btn.addEventListener("click", () => handleAnswer(i));
-    optsEl.appendChild(btn);
+    fragment.appendChild(btn);
   });
+  el("options").replaceChildren(fragment);
 
   el("explain").classList.remove("show");
   el<HTMLButtonElement>("btn-next").disabled = true;

@@ -38,8 +38,7 @@ export function renderResult(): void {
       "Precisa de mais estudo. Refaça a revisão abaixo com calma e use o modo treino antes de tentar de novo.";
   el("result-msg").textContent = msg;
 
-  const reviewList = el("review-list");
-  reviewList.innerHTML = "";
+  const fragment = document.createDocumentFragment();
   state.answers.forEach((a, idx) => {
     const correctText = a.q.opts[a.q.correct] ?? "";
     const userText = a.picked === -1 ? "(pulada)" : (a.q.opts[a.picked] ?? "");
@@ -57,8 +56,9 @@ export function renderResult(): void {
         <span class="lab">Por quê</span>${a.q.exp}
       </div>
     `;
-    reviewList.appendChild(item);
+    fragment.appendChild(item);
   });
+  el("review-list").replaceChildren(fragment);
 
   switchScreen("screen-result");
 }
