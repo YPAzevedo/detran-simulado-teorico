@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulado CNH — Atualização de Renovação</title>
+    <meta
+      name="description"
+      content="Simulado teórico online para renovação da CNH — Direção Defensiva, Primeiros Socorros e Legislação. Banco oficial DETRAN-SP / CONTRAN 789/20."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700;9..144,900&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "@/": "./js/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="header">
+        <div class="header-top">
+          <span class="stamp">DETRAN · Simulado</span>
+          <span class="doc-code">v.2026 / N°08</span>
+        </div>
+        <h1>
+          Atualização<br />da CNH<span class="small">Prova de Renovação — Vencida +5 anos</span>
+        </h1>
+        <p class="subtitle">
+          Resolução CONTRAN 789/20. Direção Defensiva &amp; Primeiros Socorros. 30 questões · 70%
+          para aprovação.
+        </p>
+      </header>
+
+      <main id="screen-home" class="screen active">
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-num" id="stat-total">8</div>
+            <div class="stat-label">Simulados</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="stat-feitos">0</div>
+            <div class="stat-label">Feitos</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="stat-melhor">—</div>
+            <div class="stat-label">Melhor %</div>
+          </div>
+        </div>
+
+        <h2 class="section-title">Escolha um simulado</h2>
+        <div class="simulado-list" id="sim-list"></div>
+
+        <div class="disclaimer">
+          <strong>Aviso.</strong> Questões reais consolidadas do banco oficial do DETRAN-SP e da
+          cartilha CONTRAN (Resolução 789/20). Cada Detran estadual aplica a sua própria prova — o
+          conteúdo central (Direção Defensiva e Primeiros Socorros) é nacional e idêntico em todos
+          os estados.
+        </div>
+
+        <p class="footer-note">
+          Faça o mesmo simulado mais de uma vez — as alternativas embaralham. Use o "Modo Misto"
+          para treinar como na prova real.
+        </p>
+      </main>
+
+      <section id="screen-quiz" class="screen">
+        <div class="quiz-bar">
+          <span id="quiz-name">Simulado</span>
+          <button class="exit" id="btn-exit">Sair</button>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progress"></div></div>
+        <div class="q-meta" style="margin-bottom: 10px">
+          <span id="q-counter">Questão 01 / 10</span>
+          <span id="q-score">Acertos: 0</span>
+        </div>
+
+        <article class="question-card">
+          <div class="q-meta">
+            <span class="q-tag" id="q-tag">Direção Defensiva</span>
+            <span id="q-id">#001</span>
+          </div>
+          <p class="q-text" id="q-text"></p>
+        </article>
+
+        <div class="options" id="options"></div>
+        <div class="explain" id="explain"></div>
+
+        <div class="quiz-nav">
+          <button class="btn" id="btn-skip">Pular</button>
+          <button class="btn primary" id="btn-next" disabled>Próxima →</button>
+        </div>
+      </section>
+
+      <section id="screen-result" class="screen">
+        <div class="result-hero">
+          <div class="result-stamp" id="result-stamp">Aprovado</div>
+          <div class="score-big" id="result-score">0</div>
+          <div class="score-frac" id="result-frac">de 0 questões</div>
+          <div class="score-pct" id="result-pct">0%</div>
+          <p class="result-msg" id="result-msg"></p>
+        </div>
+
+        <h2 class="section-title">Revisão das questões</h2>
+        <div class="review-list" id="review-list"></div>
+
+        <div class="quiz-nav" style="margin-top: 14px">
+          <button class="btn" id="btn-home">← Início</button>
+          <button class="btn primary" id="btn-retry">Tentar de novo</button>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
