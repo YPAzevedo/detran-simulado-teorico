@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Simulado teórico online da renovação da CNH — DETRAN-SP / CONTRAN 789/20.",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist",

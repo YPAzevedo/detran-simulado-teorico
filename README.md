@@ -72,3 +72,7 @@ No primeiro deploy, habilite Pages em **Settings → Pages → Source: GitHub Ac
 ## Aviso
 
 Questões consolidadas a partir do banco público do DETRAN-SP e da cartilha CONTRAN. Cada DETRAN estadual aplica sua própria prova, mas o conteúdo central (Direção Defensiva + Primeiros Socorros) é nacional.
+
+## Licença
+
+[MIT](./LICENSE) © YPAzevedo
