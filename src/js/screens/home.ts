@@ -1,23 +1,24 @@
 import { SIMULADOS } from "@/data/simulados.js";
 import { state } from "@/state.js";
 import { startSim } from "@/screens/quiz.js";
+import { el } from "@/utils.js";
 
-export function renderHome(){
-  document.getElementById('stat-total').textContent = SIMULADOS.length;
+export function renderHome(): void {
+  el("stat-total").textContent = String(SIMULADOS.length);
   const doneCount = Object.keys(state.progress.done).length;
-  document.getElementById('stat-feitos').textContent = doneCount;
-  document.getElementById('stat-melhor').textContent = state.progress.bestPct ? state.progress.bestPct + '%' : '—';
+  el("stat-feitos").textContent = String(doneCount);
+  el("stat-melhor").textContent = state.progress.bestPct ? state.progress.bestPct + "%" : "—";
 
-  const list = document.getElementById('sim-list');
-  list.innerHTML = '';
+  const list = el("sim-list");
+  list.innerHTML = "";
   SIMULADOS.forEach(s => {
     const done = state.progress.done[s.id];
-    const card = document.createElement('button');
-    card.className = 'sim-card';
+    const card = document.createElement("button");
+    card.className = "sim-card";
     card.innerHTML = `
-      ${done ? `<span class="badge-done">Feito · ${done.pct}%</span>` : ''}
+      ${done ? `<span class="badge-done">Feito · ${done.pct}%</span>` : ""}
       <div class="sim-card-head">
-        <span class="sim-num">N°${String(s.id).padStart(2,'0')}</span>
+        <span class="sim-num">N°${String(s.id).padStart(2, "0")}</span>
         <span class="sim-badge ${s.badge}">${s.badgeText}</span>
       </div>
       <h3 class="sim-title">${s.name}</h3>
@@ -27,7 +28,7 @@ export function renderHome(){
         <span>· APROVAÇÃO 70%</span>
       </div>
     `;
-    card.addEventListener('click', () => startSim(s));
+    card.addEventListener("click", () => startSim(s));
     list.appendChild(card);
   });
 }

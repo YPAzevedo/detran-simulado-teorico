@@ -1,6 +1,8 @@
 // Banco de questões — validadas (DETRAN-SP / CONTRAN 789/20)
 // tag: DD = Direção Defensiva | PS = Primeiros Socorros
-export const BANK = [
+import type { Question } from "@/types.js";
+
+export const BANK: Question[] = [
   // ============ DIREÇÃO DEFENSIVA ============
   {tag:"DD", q:"Os fatores que interferem positivamente para que o trânsito seja humano e seguro são:",
    opts:["Educação, habilidades, atenção, cooperação e solidariedade.","Individualismo, habilidades, atenção, cooperação e solidariedade.","Educação, egoísmo, atenção, cooperação e solidariedade.","Educação, habilidades, displicência, cooperação e solidariedade."],

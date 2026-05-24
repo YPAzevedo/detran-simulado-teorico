@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "rootDir": "./src/js",
+    "outDir": "./dist/js",
+    "baseUrl": "./src/js",
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "declaration": false,
+    "sourceMap": true,
+    "removeComments": false
+  },
+  "include": ["src/js/**/*"]
+}

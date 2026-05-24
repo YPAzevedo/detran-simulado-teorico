@@ -1,6 +1,6 @@
 # Simulado Teórico — Renovação da CNH
 
-Simulado online da prova teórica de renovação da CNH (Direção Defensiva, Primeiros Socorros e Legislação). 100% estático, sem build, publicado no GitHub Pages.
+Simulado online da prova teórica de renovação da CNH (Direção Defensiva, Primeiros Socorros e Legislação). Escrito em **TypeScript**, publicado como site estático no GitHub Pages.
 
 **Acesso:** https://ypazevedo.github.io/detran-simulado-teorico/
 
@@ -14,43 +14,49 @@ Simulado online da prova teórica de renovação da CNH (Direção Defensiva, Pr
 
 ## Stack
 
-HTML + CSS + JavaScript puro (ES Modules), sem framework e sem etapa de build. Os módulos usam [Import Maps](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap) para resolver bare specifiers (`@/...`) — funciona direto no navegador.
+TypeScript compilado para ES2022 puro (sem bundler, sem framework). O navegador usa [Import Maps](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap) para resolver os bare specifiers (`@/...`) do código compilado — o `tsc` só remove tipos, os caminhos `@/` ficam intactos e são resolvidos em runtime.
 
 ```
-index.html          # entry, importmap + markup
-styles/main.css     # estilos
-js/
-  main.js           # boot
-  state.js          # estado global
-  storage.js        # localStorage
-  utils.js          # shuffle / pickQuestions / switchScreen
-  data/
-    bank.js         # banco de questões
-    simulados.js    # definições dos simulados
-  screens/
-    home.js
-    quiz.js
-    result.js
+src/
+  index.html              # entry — markup + <script type="importmap">
+  styles/main.css
+  js/
+    main.ts               # boot
+    state.ts              # estado global
+    storage.ts            # localStorage
+    utils.ts              # shuffle / pickQuestions / switchScreen / el
+    types.ts              # tipos compartilhados (Question, Simulado, AppState…)
+    data/
+      bank.ts             # banco de questões
+      simulados.ts        # definições dos simulados
+    screens/
+      home.ts
+      quiz.ts
+      result.ts
+tsconfig.json
+package.json
+.github/workflows/pages.yml
 ```
 
-## Rodando localmente
+O build copia `src/index.html` + `src/styles/` para `dist/` e o `tsc` emite os `.js` em `dist/js/`. O Pages serve o `dist/`.
 
-Módulos ES exigem servir via HTTP (não `file://`). Qualquer servidor estático funciona:
+## Scripts
 
 ```bash
-python3 -m http.server 8000
-# ou
-npx serve .
+npm install         # instala typescript (única devDep)
+npm run build       # gera dist/
+npm run typecheck   # tsc --noEmit
+npm run serve       # build + http-server em :8000
 ```
 
-Abra `http://localhost:8000`.
+Módulos ES exigem ser servidos via HTTP (não `file://`). Use o `npm run serve` ou qualquer outro servidor estático apontando para `dist/`.
 
 ## Deploy
 
-Push para `main` dispara o workflow `.github/workflows/pages.yml`, que publica os arquivos no GitHub Pages.
+Push para `main` dispara o workflow `.github/workflows/pages.yml`, que instala dependências, roda o build e publica o `dist/` no GitHub Pages.
 
-Após o primeiro push, habilite Pages em **Settings → Pages → Source: GitHub Actions**.
+No primeiro deploy, habilite Pages em **Settings → Pages → Source: GitHub Actions**.
 
 ## Aviso
 
-As questões foram consolidadas a partir do banco público do DETRAN-SP e da cartilha CONTRAN. Cada DETRAN estadual aplica sua própria prova, mas o conteúdo central (Direção Defensiva + Primeiros Socorros) é nacional.
+Questões consolidadas a partir do banco público do DETRAN-SP e da cartilha CONTRAN. Cada DETRAN estadual aplica sua própria prova, mas o conteúdo central (Direção Defensiva + Primeiros Socorros) é nacional.
