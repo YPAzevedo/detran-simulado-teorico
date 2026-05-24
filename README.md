@@ -43,11 +43,23 @@ O build copia `src/index.html` + `src/styles/` para `dist/` e o `tsc` emite os `
 ## Scripts
 
 ```bash
-npm install         # instala typescript (única devDep)
+npm install         # instala typescript, oxlint, oxfmt
 npm run build       # gera dist/
 npm run typecheck   # tsc --noEmit
+npm run lint        # oxlint
+npm run lint:fix    # oxlint --fix
+npm run fmt         # oxfmt --write
+npm run fmt:check   # falha se algo precisa de format
 npm run serve       # build + http-server em :8000
 ```
+
+## CI
+
+`.github/workflows/ci.yml` roda em pull requests para `main` e em pushes para `main`:
+
+- `typecheck` — `tsc --noEmit`
+- `lint` — `oxlint`
+- `fmt` — `oxfmt --list-different` (falha se houver arquivos não formatados)
 
 Módulos ES exigem ser servidos via HTTP (não `file://`). Use o `npm run serve` ou qualquer outro servidor estático apontando para `dist/`.
 

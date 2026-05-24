@@ -27,11 +27,15 @@ export function renderResult(): void {
 
   let msg: string;
   if (pct === 100) msg = "Gabarito completo. Você passa nessa prova de olhos fechados.";
-  else if (pct >= 90) msg = "Excelente — passaria com folga. Refaça os erros e está pronto pro Detran.";
+  else if (pct >= 90)
+    msg = "Excelente — passaria com folga. Refaça os erros e está pronto pro Detran.";
   else if (pct >= 80) msg = "Bom desempenho. Revise as questões erradas e tente outro simulado.";
-  else if (pct >= 70) msg = "Passou no critério dos 70%. Tente outros simulados para chegar mais confiante.";
+  else if (pct >= 70)
+    msg = "Passou no critério dos 70%. Tente outros simulados para chegar mais confiante.";
   else if (pct >= 60) msg = "Quase lá. Foco nas questões erradas — refaça em alguns dias.";
-  else msg = "Precisa de mais estudo. Refaça a revisão abaixo com calma e use o modo treino antes de tentar de novo.";
+  else
+    msg =
+      "Precisa de mais estudo. Refaça a revisão abaixo com calma e use o modo treino antes de tentar de novo.";
   el("result-msg").textContent = msg;
 
   const reviewList = el("review-list");

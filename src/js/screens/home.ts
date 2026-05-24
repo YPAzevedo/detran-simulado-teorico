@@ -11,7 +11,7 @@ export function renderHome(): void {
 
   const list = el("sim-list");
   list.innerHTML = "";
-  SIMULADOS.forEach(s => {
+  SIMULADOS.forEach((s) => {
     const done = state.progress.done[s.id];
     const card = document.createElement("button");
     card.className = "sim-card";

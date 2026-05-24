@@ -21,7 +21,8 @@ function renderQuestion(): void {
   if (!q) return;
   const total = state.questions.length;
 
-  el("q-counter").textContent = `Questão ${String(state.current + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
+  el("q-counter").textContent =
+    `Questão ${String(state.current + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
   el("q-score").textContent = `Acertos: ${state.score}`;
   el("q-tag").textContent = q.tag === "DD" ? "Direção Defensiva" : "Primeiros Socorros";
   el("q-id").textContent = "#" + String(state.current + 1).padStart(3, "0");
@@ -40,8 +41,8 @@ function renderQuestion(): void {
   });
 
   el("explain").classList.remove("show");
-  (el<HTMLButtonElement>("btn-next")).disabled = true;
-  (el<HTMLButtonElement>("btn-skip")).disabled = false;
+  el<HTMLButtonElement>("btn-next").disabled = true;
+  el<HTMLButtonElement>("btn-skip").disabled = false;
   el("btn-next").textContent = state.current === total - 1 ? "Finalizar →" : "Próxima →";
 }
 
@@ -63,8 +64,8 @@ function handleAnswer(picked: number): void {
   expEl.innerHTML = `<strong>${wasCorrect ? "Correto." : "Resposta errada."}</strong> ${q.exp}`;
   expEl.classList.add("show");
 
-  (el<HTMLButtonElement>("btn-next")).disabled = false;
-  (el<HTMLButtonElement>("btn-skip")).disabled = true;
+  el<HTMLButtonElement>("btn-next").disabled = false;
+  el<HTMLButtonElement>("btn-skip").disabled = true;
 }
 
 function advance(): void {

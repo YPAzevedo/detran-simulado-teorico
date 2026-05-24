@@ -13,11 +13,11 @@ export function shuffle<T>(arr: readonly T[]): T[] {
 export function pickQuestions(sim: Simulado): Question[] {
   let pool: Question[];
   if (sim.seedIdx) {
-    pool = sim.seedIdx.map(i => BANK[i]).filter((q): q is Question => Boolean(q));
+    pool = sim.seedIdx.map((i) => BANK[i]).filter((q): q is Question => Boolean(q));
     return shuffle(pool).slice(0, sim.count);
   }
-  if (sim.mode === "DD") pool = BANK.filter(q => q.tag === "DD");
-  else if (sim.mode === "PS") pool = BANK.filter(q => q.tag === "PS");
+  if (sim.mode === "DD") pool = BANK.filter((q) => q.tag === "DD");
+  else if (sim.mode === "PS") pool = BANK.filter((q) => q.tag === "PS");
   else pool = BANK.slice();
   return shuffle(pool).slice(0, Math.min(sim.count, pool.length));
 }
@@ -26,13 +26,13 @@ export function pickQuestions(sim: Simulado): Question[] {
 export function prepareQuestion(q: Question): Question {
   const indices = q.opts.map((_, i) => i);
   const order = shuffle(indices);
-  const newOpts = order.map(i => q.opts[i]!);
+  const newOpts = order.map((i) => q.opts[i]!);
   const newCorrect = order.indexOf(q.correct);
   return { ...q, opts: newOpts, correct: newCorrect };
 }
 
 export function switchScreen(id: string): void {
-  document.querySelectorAll<HTMLElement>(".screen").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll<HTMLElement>(".screen").forEach((s) => s.classList.remove("active"));
   document.getElementById(id)?.classList.add("active");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
